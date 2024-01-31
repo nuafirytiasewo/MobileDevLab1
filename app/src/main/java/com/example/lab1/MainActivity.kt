@@ -1,46 +1,80 @@
 package com.example.lab1
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.lab1.ui.theme.Lab1Theme
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var editTextNumber1: EditText
+    private lateinit var editTextNumber2: EditText
+    private lateinit var textViewResult: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            Lab1Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+        setContentView(R.layout.activity_main)
+
+        editTextNumber1 = findViewById(R.id.editTextNumber1)
+        editTextNumber2 = findViewById(R.id.editTextNumber2)
+        textViewResult = findViewById(R.id.textViewResult)
+
+        //сложение
+        val buttonAdd = findViewById<Button>(R.id.buttonAdd)
+        buttonAdd.setOnClickListener {
+            val number1 = editTextNumber1.text.toString().toDoubleOrNull()
+            val number2 = editTextNumber2.text.toString().toDoubleOrNull()
+
+            if (number1 != null && number2 != null) {
+                val result = number1 + number2
+                textViewResult.text = String.format(getString(R.string.result_text), result)
+            } else {
+                Toast.makeText(this, "Ошибка ввода! (Введите корректные данные)", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+        //вычитание
+        val buttonSubtract = findViewById<Button>(R.id.buttonSubtract)
+        buttonSubtract.setOnClickListener {
+            val number1 = editTextNumber1.text.toString().toDoubleOrNull()
+            val number2 = editTextNumber2.text.toString().toDoubleOrNull()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Lab1Theme {
-        Greeting("Android")
+            if (number1 != null && number2 != null) {
+                val result = number1 - number2
+                textViewResult.text = String.format(getString(R.string.result_text), result)
+            } else {
+                Toast.makeText(this, "Ошибка ввода! (Введите корректные данные)", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        //умножение
+        val buttonMultiply = findViewById<Button>(R.id.buttonMultiply)
+        buttonMultiply.setOnClickListener {
+            val number1 = editTextNumber1.text.toString().toDoubleOrNull()
+            val number2 = editTextNumber2.text.toString().toDoubleOrNull()
+
+            if (number1 != null && number2 != null) {
+                val result = number1 * number2
+                textViewResult.text = String.format(getString(R.string.result_text), result)
+            } else {
+                Toast.makeText(this, "Ошибка ввода! (Введите корректные данные)", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        //деление
+        val buttonDivide = findViewById<Button>(R.id.buttonDivide)
+        buttonDivide.setOnClickListener {
+            val number1 = editTextNumber1.text.toString().toDoubleOrNull()
+            val number2 = editTextNumber2.text.toString().toDoubleOrNull()
+
+            if (number1 != null && number2 != null && number2 != 0.0) {
+                val result = number1 / number2
+                textViewResult.text = String.format(getString(R.string.result_text), result)
+            } else {
+                Toast.makeText(this, "Ошибка ввода или ошибка деления на 0!", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

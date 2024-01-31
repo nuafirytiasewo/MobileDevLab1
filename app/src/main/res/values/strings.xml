@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Lab1</string>
+    <string name="result_text">Результат: %s</string>
 </resources>
